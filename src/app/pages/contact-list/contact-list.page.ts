@@ -26,20 +26,20 @@ export class ContactListPage implements OnInit {
     this.getContacts();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   addContact() {
-   const modal = this.modalCtrl.create({ component: AddContactPage }).then(modalElement => {
-      modalElement.present();
-      modalElement.onDidDismiss()
-      .then(() => {
-        this.getContacts();
-    });
-    });
+    const modal = this.modalCtrl
+      .create({ component: AddContactPage })
+      .then(modalElement => {
+        modalElement.present();
+        modalElement.onDidDismiss().then(() => {
+          this.getContacts();
+        });
+      });
   }
 
-getContacts() {
+  getContacts() {
     this.sqlService.getContacts().then(
       (data: any) => {
         this.contacts = data;
@@ -51,7 +51,7 @@ getContacts() {
     );
   }
 
-updateContact(contact) {
+  updateContact(contact) {
     this.modalCtrl
       .create({
         component: UpdateContactPage,
@@ -61,15 +61,13 @@ updateContact(contact) {
       })
       .then(modalElement => {
         modalElement.present();
-        modalElement.onDidDismiss()
-      .then(() => {
-        this.getContacts();
-    });
+        modalElement.onDidDismiss().then(() => {
+          this.getContacts();
+        });
       });
-
   }
 
-deleteContact(contact) {
+  deleteContact(contact) {
     this.sqlService.deleteContact(contact.id).then(
       async () => {
         const toast = await this.toastController.create({
